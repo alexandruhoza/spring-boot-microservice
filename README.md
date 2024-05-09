@@ -12,6 +12,8 @@ This is a sample RESTful microservice built using Spring Boot that interacts wit
 - [ ] [Integration Tests]()
 - [ ] [Dockerization]()
 - [ ] [Contributing]()
+- [ ] [Endpoints]()
+- [ ] [Endpoint Details]()
 
 ## Features
 
@@ -20,6 +22,8 @@ This is a sample RESTful microservice built using Spring Boot that interacts wit
 - [ ] Optimistic locking mechanism to handle concurrent updates
 - [ ] Proper exception handling for graceful error responses
 - [ ] Packaged as a Docker image for easy deployment
+- [ ] When clients request details of a parent entity (GET /parents/<parentId>), the microservice first checks the Hazelcast cache. If the requested entity is found in the cache, it is returned directly without querying the database. This helps to minimize latency and decrease the number of database calls.
+- [ ] The microservice uses InMemoryUserDetailsManager as a temporary alternative to OAuth or JWT for authentication. This allows users to authenticate with the microservice using simple username and password authentication.
 
 
 ## Technologies Used
@@ -65,3 +69,63 @@ This is a sample RESTful microservice built using Spring Boot that interacts wit
 ## Contributing
 
 - [ ] Contributions are welcome! Please feel free to open an issue or submit a pull request for any enhancements or bug fixes.
+
+
+## Endpoints
+
+The microservice exposes the following endpoints:
+- [ ] POST /parents
+- [ ] PUT /parents
+- [ ] GET /parents/<parentId>
+
+
+## Endpoint Details
+
+- [ ] POST /parents
+    - [ ] Description: This endpoint allows clients to create a new parent entity.
+    - [ ] Request Body: JSON representation of the parent entity object.
+    - [ ] Response: The created parent entity with its unique identifier.
+
+- [ ] PUT /parents
+    - [ ] Description: This endpoint allows clients to update an existing parent entity.
+    - [ ] Request Body: JSON representation of the updated parent entity object.
+    - [ ] Response: The updated parent entity.
+    
+- [ ] GET /parents/<parentId>
+    - [ ] Description: This endpoint allows clients to retrieve details of a parent entity by its unique identifier.
+    - [ ] Path Parameter: {parentId} - The unique identifier of the parent entity.
+    - [ ] Response: JSON representation of the parent entity object.
+
+
+## Endpoint Example for POST /parents:
+
+curl --location --request POST 'http://localhost:8080/parents' \
+--header 'Authorization: Basic dXNlcjpwYXNzd29yZA==' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=EE7AB8FE74A6D867C7D4C9A865BB7959' \
+--data-raw '{
+    "id": null,
+    "version": null,
+    "name": "name",
+    "description": "desc",
+    "children": [
+            {
+                "id": null,
+                "version": null,
+                "comment": "comment on first child",
+                "rating": 3
+                },
+                {
+                "id": null,
+                "version": null,
+                "comment": "comment on second one",
+                "rating": 5
+            }
+        ]
+}'
+
+## Endpoint Example for GET /parents/<parentId>:
+
+curl --location --request GET 'http://localhost:8080/parents/1' \
+--header 'Authorization: Basic dXNlcjpwYXNzd29yZA==' \
+--header 'Cookie: JSESSIONID=EE7AB8FE74A6D867C7D4C9A865BB7959'
