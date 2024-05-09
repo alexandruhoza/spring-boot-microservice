@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: challenge
+  datasource:
+    url: jdbc:postgresql://192.168.0.80:5432/postgres
+    hikari:
+      schema: challenge
+    username: postgres
+    #    password: ${DB_PASSWORD}
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: challenge
+    hibernate:
+      ddl-auto: update
+
+  liquibase:
+    change-log: /db/changelog/liquibase-changelog.xml
+    liquibase-schema: challenge
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
